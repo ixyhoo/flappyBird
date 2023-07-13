@@ -20,3 +20,12 @@ let index = 0,
     flyHeight;
 
 
+const render = () => {
+    index++;
+
+
+    ctx.drawImage(img, 432, 0, ...size, ((canvas.width / 2)- size[0] /2), flyHeight, ...size);
+
+    window.requestAnimationFrame(render);
+}
+img.onload = render;
