@@ -10,38 +10,63 @@ const gravity = 0.5;
 const speed = 6.2;
 const size = [51, 36];
 const jump = -11.5;
-const cTenth = (canvas.width / 10);
+const cTenth = canvas.width / 10;
 
 let index = 0,
-    bestScore = 0,
-    currentScore = 0,
-    pipes = [],
-    flight,
-    flyHeight;
-
+  bestScore = 0,
+  currentScore = 0,
+  pipes = [],
+  flight,
+  flyHeight;
 
 const render = () => {
-    index++;
+  index++;
 
-    //background
+  //background
 
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height, 
-        -((index * (speed / 2)) % canvas.width) + canvas.width, 0, canvas.width,
-         canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height, 
-        -((index * (speed / 2)) % canvas.width), 0, canvas.width,
-        canvas.height);
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+    -((index * (speed / 2)) % canvas.width) + canvas.width,
+    0,
+    canvas.width,
+    canvas.height
+  );
+  ctx.drawImage(
+    img,
+    0,
+    0,
+    canvas.width,
+    canvas.height,
+    -((index * (speed / 2)) % canvas.width),
+    0,
+    canvas.width,
+    canvas.height
+  );
 
-    ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2)- size[0] /2),
-     flyHeight, ...size);
+  if (gamePlaying) {
+  } else {
+    ctx.drawImage(
+      img,
+      432,
+      Math.floor((index % 9) / 3) * size[1],
+      ...size,
+      canvas.width / 2 - size[0] / 2,
+      flyHeight,
+      ...size
+    );
 
-     flyHeight = (canvas.height / 2) - (size[1] / 2);
+    flyHeight = canvas.height / 2 - size[1] / 2;
 
     ctx.fillText(`Meilleur score : ${bestScore}`, 55, 245);
     ctx.fillText("Clickez pour jouer", 48, 535);
     ctx.font = "bold 30px courier";
-
-    window.requestAnimationFrame(render);
-}
+  }
+  window.requestAnimationFrame(render);
+};
 img.onload = render;
 
+document.addEventListener("click", () => (gamePlaying = true));
