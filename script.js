@@ -12,12 +12,31 @@ const size = [51, 36];
 const jump = -11.5;
 const cTenth = canvas.width / 10;
 
+
+// Pipe settings
+
+const pipeWidth = 78;
+const pipeGap = 270;
+const pipeLoc = () => (Math.random() * ((canvas.height - (pipeGap + pipeWidth)) - 
+pipeWidth)) + pipeWidth;
+
 let index = 0,
   bestScore = 0,
   currentScore = 0,
   pipes = [],
   flight,
   flyHeight;
+
+
+  const setup = () => {
+    currentScore = 0;
+    flight = jump;
+    flyHeight = (canvas.height / 2) - (size[1] / 2);
+
+    pipes = Array(3).fill().map((a, i) => [canvas.width + (i * (pipeGap + pipeWidth)),
+       pipeLoc()]);
+       
+  }
 
 const render = () => {
   index++;
@@ -73,10 +92,16 @@ const render = () => {
     ctx.fillText("Clickez pour jouer", 48, 535);
     ctx.font = "bold 30px courier";
   }
+
+  // Pipe
+
+
+  
   window.requestAnimationFrame(render);
 };
-img.onload = render;
 
+setup();
+img.onload = render;
 document.addEventListener("click", () => (gamePlaying = true));
 window.onclick = () => (flight = jump);
-/////////
+
