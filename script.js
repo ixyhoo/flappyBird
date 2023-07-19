@@ -95,13 +95,27 @@ const render = () => {
 
   // Pipe
 
+if (gamePlaying) {
+  pipes.map(pipe => {
+    pipe[0] -= speed;
 
-  
+    // top pipe
+    ctx.drawImage(img, 432, 588 - pipe[1], pipeWidth, pipe[1], pipe[0], 0, 
+      pipeWidth, pipe[1]);
+
+      // bottom pipe
+      ctx.drawImage(img, 432 + pipeWidth, 108, pipeWidth, canvas.height - 
+        pipe[1] + pipeGap, pipe[0], pipe[1] + pipeGap, pipeWidth, canvas.height 
+        - pipe[1] + pipeGap);    
+  })
+ 
+}
+
   window.requestAnimationFrame(render);
 };
 
 setup();
 img.onload = render;
-document.addEventListener("click", () => (gamePlaying = true));
-window.onclick = () => (flight = jump);
+document.addEventListener("click", () => gamePlaying = true);
+window.onclick = () => flight = jump;
 
